@@ -10,7 +10,8 @@ setup(
     url="https://github.com/dneprDroid/DeformConv2d-Metal",
     author="dneprDroid",
     author_email="no@email.com",
-    packages=find_packages(),
+    packages=['DeformConv2dConvert'],
+    package_dir={'DeformConv2dConvert': 'converter'},
     install_requires=[
         "coremltools",
         "torch",

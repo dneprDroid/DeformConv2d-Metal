@@ -1,7 +1,7 @@
 """
 Run in the root dir:
 
-python3 -m DeformConv2dConvert.demo
+python3 -m converter.demo
 
 """
 import os

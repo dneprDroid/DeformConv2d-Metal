@@ -18,6 +18,7 @@ let package = Package(
     targets: [
         .target(
             name: "DeformConv2dMetal",
+            path: "swift/DeformConv2dMetal",
             resources: [
                 .copy("Resources/Metal"),
             ]

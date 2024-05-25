@@ -1,9 +1,3 @@
-"""
-Run in the root dir:
-
-python3 -m converter.demo
-
-"""
 import os
 import shutil
 import json
@@ -16,7 +10,7 @@ from torchvision.ops.deform_conv import deform_conv2d
 
 import coremltools
 
-from .. import register_op
+import DeformConv2dConvert
 
 class TestModel(nn.Module):
 
@@ -103,9 +97,15 @@ def convert(output_dir, filename='test-model'):
     print(f"Saved to {output_dir}")
 
 def main():
-    register_op()
+    DeformConv2dConvert.register_op()
     
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    out_dir_path = os.path.join(current_dir, "../../DemoApp/generated")
-    out_dir_path = os.path.abspath(out_dir_path)
+    out_dir_path = os.path.join(current_dir, "output")
+    
+    if not os.path.exists(out_dir_path):
+        os.mkdir(out_dir_path)
+
     convert(out_dir_path)    
+
+if __name__ == "__main__":
+    main()

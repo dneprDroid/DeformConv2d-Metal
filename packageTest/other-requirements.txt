@@ -1,0 +1,3 @@
+coremltools>=7.1
+
+DeformConv2dConvert @ git+https://github.com/dneprDroid/DeformConv2d-Metal.git

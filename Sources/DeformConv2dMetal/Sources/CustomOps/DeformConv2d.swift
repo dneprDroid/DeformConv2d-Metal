@@ -15,6 +15,7 @@ enum DeformConv2dError: Error {
     case paramsDecode
 }
 
+// it'll be loaded by CoreML engine, don't change the objc class name
 @objc(dneprDroid_deform_conv2d)
 final class DeformConv2d: NSObject, MLCustomLayer {
     

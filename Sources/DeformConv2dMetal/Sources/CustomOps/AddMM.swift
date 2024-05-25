@@ -1,6 +1,7 @@
 import Foundation
 import CoreML
 
+// it'll be loaded by CoreML engine, don't change the objc class name
 @objc(dneprDroid_addmm)
 final class AddMM: NSObject, MLCustomLayer {
     let pipelineState: MTLComputePipelineState

@@ -20,6 +20,16 @@
 		CE017C342C02483E006F4F1C /* NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C322C02483E006F4F1C /* NdArray.swift */; };
 		CE017C362C0248DD006F4F1C /* NdArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C352C0248DD006F4F1C /* NdArrayUtil.swift */; };
 		CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C372C024916006F4F1C /* MLMultiArray+NdArray.swift */; };
+		CE1DE71E2C024FA5001E19F2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1DE71D2C024FA5001E19F2 /* App.swift */; };
+		CE1DE7222C024FA7001E19F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1DE7212C024FA7001E19F2 /* Assets.xcassets */; };
+		CE1DE72B2C025016001E19F2 /* DeformConv2dMetal in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */; };
+		CE1DE72C2C025016001E19F2 /* DeformConv2dMetal in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE1DE72E2C025025001E19F2 /* NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C322C02483E006F4F1C /* NdArray.swift */; };
+		CE1DE72F2C025027001E19F2 /* MLMultiArray+NdArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C372C024916006F4F1C /* MLMultiArray+NdArray.swift */; };
+		CE1DE7302C025029001E19F2 /* NdArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C352C0248DD006F4F1C /* NdArrayUtil.swift */; };
+		CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
+		CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
+		CE1DE7332C025102001E19F2 /* example_input.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2B2C023ACA006F4F1C /* example_input.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +40,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CE017C1E2C02380C006F4F1C /* DeformConv2dMetal in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1DE72D2C025016001E19F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CE1DE72C2C025016001E19F2 /* DeformConv2dMetal in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,6 +71,10 @@
 		CE017C322C02483E006F4F1C /* NdArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NdArray.swift; sourceTree = "<group>"; };
 		CE017C352C0248DD006F4F1C /* NdArrayUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NdArrayUtil.swift; sourceTree = "<group>"; };
 		CE017C372C024916006F4F1C /* MLMultiArray+NdArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLMultiArray+NdArray.swift"; sourceTree = "<group>"; };
+		CE1DE71B2C024FA5001E19F2 /* Test-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE1DE71D2C024FA5001E19F2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		CE1DE7212C024FA7001E19F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Test_macOS.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +83,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1DE7182C024FA5001E19F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1DE72B2C025016001E19F2 /* DeformConv2dMetal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +103,7 @@
 				CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
+				CE1DE71C2C024FA5001E19F2 /* Test-macOS */,
 				CE017BDF2C0235D3006F4F1C /* Products */,
 				CE017C1B2C02380C006F4F1C /* Frameworks */,
 			);
@@ -79,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				CE017BDE2C0235D3006F4F1C /* Test-iOS.app */,
+				CE1DE71B2C024FA5001E19F2 /* Test-macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,6 +182,16 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		CE1DE71C2C024FA5001E19F2 /* Test-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CE1DE71D2C024FA5001E19F2 /* App.swift */,
+				CE1DE7212C024FA7001E19F2 /* Assets.xcassets */,
+				CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */,
+			);
+			path = "Test-macOS";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -171,6 +216,27 @@
 			productReference = CE017BDE2C0235D3006F4F1C /* Test-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CE1DE71A2C024FA5001E19F2 /* Test-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE1DE7292C024FA7001E19F2 /* Build configuration list for PBXNativeTarget "Test-macOS" */;
+			buildPhases = (
+				CE1DE7172C024FA5001E19F2 /* Sources */,
+				CE1DE7182C024FA5001E19F2 /* Frameworks */,
+				CE1DE7192C024FA5001E19F2 /* Resources */,
+				CE1DE72D2C025016001E19F2 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Test-macOS";
+			packageProductDependencies = (
+				CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */,
+			);
+			productName = "Test-macOS";
+			productReference = CE1DE71B2C024FA5001E19F2 /* Test-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -182,6 +248,9 @@
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					CE017BDD2C0235D3006F4F1C = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					CE1DE71A2C024FA5001E19F2 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -200,6 +269,7 @@
 			projectRoot = "";
 			targets = (
 				CE017BDD2C0235D3006F4F1C /* Test-iOS */,
+				CE1DE71A2C024FA5001E19F2 /* Test-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -217,6 +287,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE1DE7192C024FA5001E19F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1DE7222C024FA7001E19F2 /* Assets.xcassets in Resources */,
+				CE1DE7332C025102001E19F2 /* example_input.json in Resources */,
+				CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */,
+				CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -230,6 +311,17 @@
 				CE017C362C0248DD006F4F1C /* NdArrayUtil.swift in Sources */,
 				CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */,
 				CE017C182C023794006F4F1C /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1DE7172C024FA5001E19F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1DE71E2C024FA5001E19F2 /* App.swift in Sources */,
+				CE1DE72F2C025027001E19F2 /* MLMultiArray+NdArray.swift in Sources */,
+				CE1DE72E2C025025001E19F2 /* NdArray.swift in Sources */,
+				CE1DE7302C025029001E19F2 /* NdArrayUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +507,64 @@
 			};
 			name = Release;
 		};
+		CE1DE7272C024FA7001E19F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Test-macOS/Test_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Test-macOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dneprdroid.app.Test-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CE1DE7282C024FA7001E19F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Test-macOS/Test_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Test-macOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dneprdroid.app.Test-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -436,10 +586,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		CE1DE7292C024FA7001E19F2 /* Build configuration list for PBXNativeTarget "Test-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1DE7272C024FA7001E19F2 /* Debug */,
+				CE1DE7282C024FA7001E19F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DeformConv2dMetal;
+		};
+		CE1DE72A2C025016001E19F2 /* DeformConv2dMetal */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DeformConv2dMetal;
 		};

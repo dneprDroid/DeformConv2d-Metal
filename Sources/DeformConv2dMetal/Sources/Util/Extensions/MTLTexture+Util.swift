@@ -63,8 +63,15 @@ extension MTLDevice {
             let rootUrl = Bundle.module.resourceURL
         else { fatalError() }
         
-        let url = rootUrl.appendingPathComponent( "Metal")
-            .appendingPathComponent("DeformConv2d-Metal-iOS.metallib")
+        #if os(iOS)
+            let osName = "iOS"
+        #elseif os(macOS)
+            let osName = "macOS"
+        #else
+            #error("OS isn't supported")
+        #endif
+        let url = rootUrl.appendingPathComponent("Metal")
+            .appendingPathComponent("DeformConv2d-Metal-\(osName).metallib")
         
         let library = try self.makeLibrary(URL: url)
         

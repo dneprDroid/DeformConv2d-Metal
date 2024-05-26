@@ -21,7 +21,7 @@ enum TextureFactory {
         device: MTLDevice,
         from data: Data,
         shape: [Int]
-    ) -> MTLTexture {
+    ) throws -> MTLTexture {
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(
             pixelFormat: .r16Float,
             width: shape[shape.count - 2],
@@ -34,20 +34,20 @@ enum TextureFactory {
         descriptor.arrayLength = shape[shape.count - 3]
         
         guard let texture = device.makeTexture(descriptor: descriptor) else {
-            fatalError()
+            throw ErrorCommon.textureAllocateFailed
         }
-        fill(texture: texture, from: data, shape: shape)
+        try fill(texture: texture, from: data, shape: shape)
         return texture
     }
     
-    static func fill(texture: MTLTexture, from data: Data, shape: [Int]) {
+    static func fill(texture: MTLTexture, from data: Data, shape: [Int]) throws {
         let tensorSize = shape.tensorSize()
         
         let dataBytesPerComponent = data.count / tensorSize
         
         switch (dataBytesPerComponent, texture.pixelFormat) {
         case (MemoryLayout<Float32>.stride, .rgba16Float): // float32 -> float16
-            fill(
+            try fill(
                 texture: texture,
                 from: data,
                 shape: shape,
@@ -55,7 +55,7 @@ enum TextureFactory {
                 convert: Self.float32to16
             )
         case (MemoryLayout<Float32>.stride, .r16Float): // float32 -> float16
-            fill(
+            try fill(
                 texture: texture,
                 from: data,
                 shape: shape,
@@ -63,7 +63,10 @@ enum TextureFactory {
                 convert: Self.float32to16
             )
         default:
-            fatalError("Not implemented, dataBytesPerComponent: \(dataBytesPerComponent)")
+            throw ErrorCommon.textureDataConversionNotSupported(
+                bytesPerComponent: dataBytesPerComponent,
+                pixelFormat: texture.pixelFormat
+            )
         }
     }
     
@@ -72,15 +75,13 @@ enum TextureFactory {
         from data: Data,
         shape: [Int],
         channels: Int,
-        convert: (_ ptr: UnsafeMutablePointer<ScalarSrc>, _ count: Int) -> [ScalarDst]
-    ) {
+        convert: (_ ptr: UnsafeMutablePointer<ScalarSrc>, _ count: Int) throws -> [ScalarDst]
+    ) throws {
         let tensorSize = shape.tensorSize()
         
         var src = data.withUnsafeBytes { [ScalarSrc](UnsafeBufferPointer(start: $0, count: tensorSize)) }
-        let dst: [ScalarDst] = convert(&src, src.count)
-        
-        assert(src.count == dst.count)
-        
+        let dst: [ScalarDst] = try convert(&src, src.count)
+                
         let bytesPerComponent = channels * MemoryLayout<ScalarDst>.stride
         let bytesPerRow = texture.width * bytesPerComponent
         let bytesPerImage = bytesPerRow * texture.height
@@ -105,17 +106,25 @@ enum TextureFactory {
         }
     }
     
-    private static func float32to16(input: UnsafeMutablePointer<Float32>, count: Int) -> [_Float16] {
+    private static func float32to16(
+        input: UnsafeMutablePointer<Float32>,
+        count: Int
+    ) throws -> [_Float16] {
+        
         var output = [_Float16](repeating: 0, count: count)
         
-        output.withUnsafeMutableBytes { ptr in
+        try output.withUnsafeMutableBytes { ptr in
             guard let rawPtr = ptr.baseAddress else { return }
             
             var bufferFloat32 = vImage_Buffer(data: input,   height: 1, width: UInt(count), rowBytes: count * 4)
             var bufferFloat16 = vImage_Buffer(data: rawPtr, height: 1, width: UInt(count), rowBytes: count * 2)
-
-            if vImageConvert_PlanarFtoPlanar16F(&bufferFloat32, &bufferFloat16, 0) != kvImageNoError {
-              fatalError() // TODO:
+            
+            let status = vImageConvert_PlanarFtoPlanar16F(&bufferFloat32, &bufferFloat16, 0)
+            if status != kvImageNoError {
+                throw ErrorCommon.dataConversionUnsupported(
+                    srcBytesPerComponent: 4,
+                    dstBytesPerComponent: 2
+                )
             }
         }
         return output

@@ -24,14 +24,10 @@ final class AddMM: NSObject, MLCustomLayer {
         return [outShape.map { NSNumber(value: $0) }]
     }
     
-    func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
-        fatalError()
-    }
-    
     func encode(commandBuffer: any MTLCommandBuffer, inputs: [any MTLTexture], outputs: [any MTLTexture]) throws {
 
         guard let encoder = commandBuffer.makeComputeCommandEncoder() else {
-            fatalError()
+            throw ErrorCommon.encoderInvalid
         }
         let p0 = inputs[0]
         let p1 = inputs[1]
@@ -54,5 +50,9 @@ final class AddMM: NSObject, MLCustomLayer {
         encoder.setComputePipelineState(pipelineState)
         encoder.dispatchThreadgroups(threadGroups, threadsPerThreadgroup: threadGroupSize)
         encoder.endEncoding()
+    }
+    
+    func evaluate(inputs: [MLMultiArray], outputs: [MLMultiArray]) throws {
+        throw ErrorCommon.cpuNotImplemented
     }
 }

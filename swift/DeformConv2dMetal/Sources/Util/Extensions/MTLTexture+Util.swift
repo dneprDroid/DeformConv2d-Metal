@@ -24,7 +24,7 @@ extension MTLTexture {
         bytesPerComponent: Int,
         for type: T.Type  = T.self
     ) -> [T] {
-        let bytesPerRow = width * bytesPerComponent // TODO: float size
+        let bytesPerRow = width * bytesPerComponent
         
         var values = [T](repeating: 0, count: bytesPerRow * height * depth)
         
@@ -61,7 +61,7 @@ extension MTLDevice {
     func makeFunction(name: String) throws -> MTLFunction {
         guard
             let rootUrl = Bundle.module.resourceURL
-        else { fatalError() }
+        else { throw ErrorCommon.missingBundle }
         
         #if os(iOS)
             let osName = "iOS"

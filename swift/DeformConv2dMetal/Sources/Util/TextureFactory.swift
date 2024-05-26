@@ -10,11 +10,6 @@ typealias _Float16 = Float16
 typealias _Float16 = UInt16
 #endif
 
-enum TextureFactoryError: Error {
-    case failedToAllocate
-    case dataTypeNotSupported(bytesPerComponent: Int)
-}
-
 enum TextureFactory {
         
     static func createTexture2DArray(

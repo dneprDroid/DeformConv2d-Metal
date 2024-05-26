@@ -25,7 +25,7 @@ class App {
     
     private static func test() async throws {
         guard let modelUrl = Bundle.main.url(forResource: "test-model.mlmodel.pb", withExtension: nil) else {
-            fatalError() // TODO: error
+            fatalError("Can't find ML model")
         }
         let compiledUrl = try await MLModel.compileModel(at: modelUrl)
         defer {
@@ -35,7 +35,7 @@ class App {
         let configuration = MLModelConfiguration()
         configuration.computeUnits = .cpuAndGPU
         
-        configuration.allowLowPrecisionAccumulationOnGPU = true
+        configuration.allowLowPrecisionAccumulationOnGPU = false
 
         let model = try MLModel(contentsOf: compiledUrl, configuration: configuration)
         
@@ -46,13 +46,11 @@ class App {
 
         let input = Input(input: exampleInput)
         
-        print("started!")
-        
         let output = try await model.prediction(from: input)
             .featureValue(for: "output")?
             .multiArrayValue
         
-        guard let output else { fatalError() } // TODO: error
+        guard let output else { fatalError("output is empty") }
         print("received output")
 
         assert(output.dataType == .float32)
@@ -79,7 +77,7 @@ private extension App {
     
     final class Input: MLFeatureProvider {
         
-        var featureNames: Set<String> = ["input"]
+        let featureNames: Set<String> = ["input"]
         
         private let input: MLMultiArray
 

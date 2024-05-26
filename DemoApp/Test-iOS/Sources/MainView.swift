@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     @StateObject var viewModel = ViewModel()
 
     var body: some View {
         VStack {
-            Text(textInfo())
+            Text(textStatus())
                 .multilineTextAlignment(.center)
         }
         .padding(25)
@@ -16,7 +16,7 @@ struct ContentView: View {
         }
     }
     
-    private func textInfo() -> String {
+    private func textStatus() -> String {
         switch viewModel.state {
         case .initial:
             return ""

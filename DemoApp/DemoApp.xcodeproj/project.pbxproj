@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE017C162C023794006F4F1C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */; };
 		CE017C172C023794006F4F1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C102C023794006F4F1C /* Assets.xcassets */; };
-		CE017C182C023794006F4F1C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C122C023794006F4F1C /* ContentView.swift */; };
+		CE017C182C023794006F4F1C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C122C023794006F4F1C /* MainView.swift */; };
 		CE017C192C023794006F4F1C /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C132C023794006F4F1C /* DemoApp.swift */; };
 		CE017C1D2C02380C006F4F1C /* DeformConv2dMetal in Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; };
 		CE017C1E2C02380C006F4F1C /* DeformConv2dMetal in Embed Frameworks */ = {isa = PBXBuildFile; productRef = CE017C1C2C02380C006F4F1C /* DeformConv2dMetal */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -30,6 +30,7 @@
 		CE1DE7312C0250EE001E19F2 /* test-model.mlmodel.pb in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */; };
 		CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2C2C023ACA006F4F1C /* example_output.json */; };
 		CE1DE7332C025102001E19F2 /* example_input.json in Resources */ = {isa = PBXBuildFile; fileRef = CE017C2B2C023ACA006F4F1C /* example_input.json */; };
+		CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,7 +62,7 @@
 		CE017BDE2C0235D3006F4F1C /* Test-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE017C102C023794006F4F1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE017C122C023794006F4F1C /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE017C122C023794006F4F1C /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		CE017C132C023794006F4F1C /* DemoApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "DeformConv2d-Metal"; path = ..; sourceTree = "<group>"; };
 		CE017C202C023A4B006F4F1C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		CE1DE71D2C024FA5001E19F2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE1DE7212C024FA7001E19F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1DE7262C024FA7001E19F2 /* Test_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Test_macOS.entitlements; sourceTree = "<group>"; };
+		CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModelTestWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +142,9 @@
 			isa = PBXGroup;
 			children = (
 				CE017C132C023794006F4F1C /* DemoApp.swift */,
-				CE017C122C023794006F4F1C /* ContentView.swift */,
+				CE017C122C023794006F4F1C /* MainView.swift */,
 				CE017C202C023A4B006F4F1C /* ViewModel.swift */,
+				CE6711652C033E4A000B5F7D /* MLModelTestWorker.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -310,7 +313,8 @@
 				CE017C212C023A4B006F4F1C /* ViewModel.swift in Sources */,
 				CE017C362C0248DD006F4F1C /* NdArrayUtil.swift in Sources */,
 				CE017C382C024916006F4F1C /* MLMultiArray+NdArray.swift in Sources */,
-				CE017C182C023794006F4F1C /* ContentView.swift in Sources */,
+				CE017C182C023794006F4F1C /* MainView.swift in Sources */,
+				CE6711662C033E4A000B5F7D /* MLModelTestWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

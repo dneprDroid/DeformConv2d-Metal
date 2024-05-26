@@ -27,7 +27,7 @@ In `MLModelTestWorker` it loads the generated CoreML model and the example input
 and compares the calculated CoreML output tensor with the PyTorch example output tensor from the `DemoApp/generated` directory. 
 
 ### Custom layers
-Custom layers are located in [`swift/DeformConv2dMetal/Sources/CustomOps`](swift/DeformConv2dMetal/Sources/CustomOps).
+Custom layers are located in [`DeformConv2dMetal/Sources/CustomOps`](DeformConv2dMetal/Sources/CustomOps).
 
 
 ## Use in your project

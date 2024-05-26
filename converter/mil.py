@@ -1,15 +1,17 @@
 import json
 
 from coremltools.converters.mil.mil import Builder as mb
-from coremltools.converters.mil.mil import (
-    Builder as mb,
-)
 from coremltools.converters.mil.frontend.torch.ops import (
     _get_inputs as mil_get_inputs
 )
 from coremltools.converters.mil import (
     register_torch_op
 )
+
+
+class _State:
+    _view_index = 0
+    _flatten_index = 0
 
 
 def register_op():
@@ -19,7 +21,18 @@ def register_op():
         override=True
     )
 
+
+def _to_int_shape(shape):
+    return [int(x) for x in shape]
+
+
+def _shapeToStr(shape):
+    shape_array = list(_to_int_shape(shape))
+    return json.dumps(shape_array)
+
 # @register_torch_op(torch_alias=["torchvision::deform_conv2d"], override=True)
+
+
 def torchvision_deform_conv2d(context, node):
     inputs = mil_get_inputs(context, node, expected=14)
 
@@ -55,22 +68,13 @@ def torchvision_deform_conv2d(context, node):
     out_h = ((in_h + 2 * pad_h - ker_h) / stride_h) + 1
     out_w = ((in_w + 2 * pad_w - ker_w) / stride_w) + 1
 
-    out_shape_final = [
-        batch_sz, out_channels, out_h, out_w
-    ]
-    out_shape_final = [int(_o) for _o in out_shape_final]
-
-    class _State:
-        _view_index = 0
-        _flatten_index = 0
-
     _state = _State()
 
-    def _view(x=None, shape=None, name=None):
+    def _view(x, shape, name=None):
         op_name = name if name != None else node.name + \
             ('___view_%i' % _state._view_index)
         # print("view: ", op_name, shape)
-        res = mb.reshape(x=x, shape=[int(o) for o in shape], name=op_name)
+        res = mb.reshape(x=x, shape=_to_int_shape(shape), name=op_name)
         _state._view_index += 1
         context.add(res)
         return res
@@ -101,12 +105,10 @@ def torchvision_deform_conv2d(context, node):
         ]
     )
 
-    def _zeros(shape=None, name=None):
-        assert name != None
-
+    def _zeros(shape, name):
         return mb.fill(
             value=0.0,
-            shape=[int(o) for o in shape],
+            shape=_to_int_shape(shape),
             name=name
         )
 
@@ -145,26 +147,19 @@ def torchvision_deform_conv2d(context, node):
     #       n_in_channels * weight_h * weight_w,
     #       n_parallel_imgs * out_h * out_w
     # ]
-    columns_shape = [
+    columns_shape = _to_int_shape([
         n_in_channels * weight_h * weight_w,
         #   n_parallel_imgs * out_h * out_w
         out_w,
         out_h,
-    ]
-    columns_shape = [int(_o) for _o in columns_shape]
-
-    def _shapeToStr(shape=None):
-        shape_int = [int(_o) for _o in shape]
-        return json.dumps(list(shape_int))
+    ])
 
     columns_shape_str = _shapeToStr(shape=[1, 1] + list(columns_shape))
 
     # for b in range(batch_sz / n_parallel_imgs):
 
-    __weight_g = _view(x=weight, shape=weight.shape[1:])
-    __weight_g = _view(x=weight, shape=[1, 1, 1, __weight_g.val.size])
-
-    weight_g = __weight_g
+    weight_g = _view(x=weight, shape=weight.shape[1:])
+    weight_g = _view(x=weight, shape=[1, 1, 1, weight_g.val.size])
 
     columns = mb.deform_conv2d_op(
         outShape=columns_shape_str,
@@ -251,8 +246,7 @@ def torchvision_deform_conv2d(context, node):
         ]
     )
 
-    result_shape = [batch_sz, out_channels, out_h, out_w]
-    result_shape = [int(_o) for _o in result_shape]
+    result_shape = _to_int_shape([batch_sz, out_channels, out_h, out_w])
 
     out_buf = _view(
         x=out_buf,

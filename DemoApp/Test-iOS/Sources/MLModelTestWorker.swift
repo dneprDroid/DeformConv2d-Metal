@@ -12,7 +12,7 @@ enum State {
     case completed(ok: Bool)
 }
 
-struct MLModelTestWorker {
+final class MLModelTestWorker {
     
     var onUpdateState: (State) async -> Void = { _ in }
 
@@ -69,21 +69,23 @@ struct MLModelTestWorker {
     }
 }
     
-final class Input: MLFeatureProvider {
-    
-    let featureNames: Set<String> = ["input"]
-    
-    private let input: MLMultiArray
+extension MLModelTestWorker {
 
-    init(input: MLMultiArray) {
-        self.input = input
-    }
-    
-    func featureValue(for featureName: String) -> MLFeatureValue? {
-        if featureName == "input" {
-            return MLFeatureValue(multiArray: input)
+    final class Input: MLFeatureProvider {
+        
+        let featureNames: Set<String> = ["input"]
+        
+        private let input: MLMultiArray
+
+        init(input: MLMultiArray) {
+            self.input = input
         }
-        return .none
+        
+        func featureValue(for featureName: String) -> MLFeatureValue? {
+            if featureName == "input" {
+                return MLFeatureValue(multiArray: input)
+            }
+            return .none
+        }
     }
 }
-

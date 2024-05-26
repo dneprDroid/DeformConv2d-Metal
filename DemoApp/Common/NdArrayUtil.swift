@@ -53,7 +53,8 @@ enum NdArrayUtil {
         if isOk {
             print("Validation: successful")
         } else {
-            print("Validation: failed (CoreML and PyTorch output tesnors aren't equal")
+            print("maxDiff=\(maxDiff) > precision")
+            print("Validation: failed (CoreML and PyTorch output tesnors aren't equal)")
         }
         return isOk
     }

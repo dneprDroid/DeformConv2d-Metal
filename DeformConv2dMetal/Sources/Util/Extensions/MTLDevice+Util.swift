@@ -14,7 +14,7 @@ extension MTLDevice {
         #else
             #error("OS isn't supported")
         #endif
-        let url = rootUrl.appendingPathComponent("Metal")
+        let url = rootUrl.appendingPathComponent("SupportFiles")
             .appendingPathComponent("DeformConv2d-Metal-\(osName).metallib")
         
         let library = try self.makeLibrary(URL: url)

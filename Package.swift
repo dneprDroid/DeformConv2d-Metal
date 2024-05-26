@@ -20,7 +20,7 @@ let package = Package(
             name: "DeformConv2dMetal",
             path: "DeformConv2dMetal",
             resources: [
-                .copy("Resources/Metal"),
+                .copy("Resources/SupportFiles"),
             ]
         )
     ]

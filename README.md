@@ -16,7 +16,7 @@ python3 -m converter.demo
 It'll save the ml-model and example input/output tensors to the `DemoApp/generated` directory 
 so the demo app can validate the CoreML output results and compare them with the PyTorch output.
 
-#### iOS and macOS demo app
+### iOS and macOS demo app
 Open `DemoApp/DemoApp.xcodeproj` in Xcode and run the demo app.
 
 The `Test-iOS` target contains the demo for iOS.

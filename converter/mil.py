@@ -37,9 +37,16 @@ def torchvision_deform_conv2d(context, node):
     inputs = mil_get_inputs(context, node, expected=14)
 
     input = inputs[0]
+
+    # Weights:
     weight = inputs[1]
     offset = inputs[2]
     mask = inputs[3]
+
+    assert offset.op.op_type == 'const', 'the `offset` param should be stored in the weights'
+    assert mask.op.op_type == 'const', 'the `mask` param should be stored in the weights'
+    assert weight.op.op_type == 'const', 'the `weight` param should be stored in the weights'
+
     bias = inputs[4]
 
     stride_h = inputs[5].val

@@ -63,9 +63,12 @@ def convert(output_dir, filename='test-model'):
 
     torch_model = TestModel()
     example_input = torch.rand(1, 3, 600, 600).type(torch.float32)
+    example_output = torch_model(example_input)
+
+    print("example output (flatten): ", example_output.flatten())
 
     save_as_json(example_input, 'example_input.json', output_dir)
-    save_as_json(torch_model(example_input), 'example_output.json', output_dir)
+    save_as_json(example_output, 'example_output.json', output_dir)
 
     traced_model = torch.jit.trace(torch_model, example_input)
 

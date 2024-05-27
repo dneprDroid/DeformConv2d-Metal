@@ -5,8 +5,7 @@ CoreML custom layer (GPU-accelerated) and converter for [`torchvision.ops.deform
 
 ## Demo 
 
-Convert a demo ml-model to CoreML format:
-
+Convert [the demo ml-model](converter/demo/convert.py) with `torchvision.ops.deform_conv2d` operation to CoreML format:
 
 ``` bash 
 # Run in the root dir:
@@ -15,6 +14,13 @@ python3 -m converter.demo
 ```
 It'll save the ml-model and example input/output tensors to the `DemoApp/generated` directory 
 so the demo app can validate the CoreML output results and compare them with the PyTorch output.
+
+The converted ML-model contains custom layers:
+
+
+![Screenshot 2024-05-27 at 12 55 43](https://github.com/dneprDroid/DeformConv2d-Metal/assets/13742733/d9044a31-e598-4072-bab9-53c2e7da20a4)
+
+
 
 ### iOS and macOS demo apps
 Open `DemoApp/DemoApp.xcodeproj` in Xcode and run the demo app.

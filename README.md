@@ -30,7 +30,11 @@ The `Test-iOS` target contains the demo for iOS.
 The `Test-macOS` target contains the demo for macOS.
 
 In `MLModelTestWorker` it loads the generated CoreML model and the example input tensor from the `DemoApp/generated` directory 
-and compares the calculated CoreML output tensor with the PyTorch example output tensor from the `DemoApp/generated` directory. 
+and compares the calculated CoreML output tensor with the PyTorch example output tensor from the `DemoApp/generated` directory:
+
+![Screenshot 2024-05-27 at 14 39 04](https://github.com/dneprDroid/DeformConv2d-Metal/assets/13742733/33186a9c-c79c-4d01-9051-93730a4642a2)
+
+ 
 
 ### Custom layers
 Custom layers are located in [`DeformConv2dMetal/Sources/CustomOps`](DeformConv2dMetal/Sources/CustomOps).

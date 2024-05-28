@@ -62,6 +62,8 @@ def convert(output_dir, filename='test-model'):
     output_path = os.path.join(output_dir, filename)
 
     torch_model = TestModel()
+
+    print("generating random input tensor...")
     example_input = torch.rand(1, 3, 600, 600).type(torch.float32)
     example_output = torch_model(example_input)
 

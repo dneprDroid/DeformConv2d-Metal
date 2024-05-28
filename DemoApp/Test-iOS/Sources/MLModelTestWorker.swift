@@ -59,7 +59,7 @@ final class MLModelTestWorker {
         
         let outputArray = output.toNdArray4d()
         let flattenArray = output.toFlattenArray(for: Float32.self)
-        print("Received output (flatten tensor): ", flattenArray)
+        print("calculated output (flatten tensor): ", flattenArray)
         
         let isOk = NdArrayUtil.validate(
             actual: outputArray,

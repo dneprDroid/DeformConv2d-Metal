@@ -51,13 +51,12 @@ class App {
             .multiArrayValue
         
         guard let output else { fatalError("output is empty") }
-        print("received output")
 
         assert(output.dataType == .float32)
         
         let outputArray = output.toNdArray4d()
         
-        print("output: ", outputArray)
+        print("calculated output: ", outputArray)
         let isValid = NdArrayUtil.validate(
             actual: outputArray,
             expected: exampleOutputArray

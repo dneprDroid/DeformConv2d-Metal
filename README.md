@@ -32,7 +32,8 @@ The `Test-macOS` target contains the demo for macOS.
 In `MLModelTestWorker` it loads the generated CoreML model and the example input tensor from the `DemoApp/generated` directory 
 and compares the calculated CoreML output tensor with the PyTorch example output tensor from the `DemoApp/generated` directory:
 
-![Screenshot 2024-05-27 at 14 47 03](https://github.com/dneprDroid/DeformConv2d-Metal/assets/13742733/62229c1e-36a1-4e90-8a4c-d18f5bf95768)
+![Screenshot 2024-05-28 at 12 21 52](https://github.com/dneprDroid/DeformConv2d-Metal/assets/13742733/8905de5b-ab83-42e2-bf1e-0f28f9f6ca7c)
+
 
  
 
@@ -43,7 +44,7 @@ Custom layers are located in [`DeformConv2dMetal/Sources/CustomOps`](DeformConv2
 ## Use in your project
 
 
-Install this pip package and import it in your convertor script:
+Install this pip package and import it in your converter script:
 
 ```bash 
 
@@ -56,7 +57,7 @@ import DeformConv2dConvert
 
 ...
 
-# register op so CoreML Tools can find the convetor function  
+# register op so CoreML Tools can find the converter function  
 DeformConv2dConvert.register_op()
 
 # and convert your model...

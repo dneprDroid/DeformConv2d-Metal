@@ -23,13 +23,8 @@ class TestModel(nn.Module):
     def __init__(self, sizewh = 16, kwh=3):
         super(TestModel, self).__init__()
 
-        #self.offset = torch.rand(1, 2 * kwh * kwh, sizewh, sizewh)
-        #self.mask = torch.rand(1, kwh * kwh, sizewh, sizewh)
         self.weight = torch.rand(1, 3, kwh, kwh)
-
         print("self.weight: ", self.weight.shape)
-        #print("self.offset: ", self.offset.shape)
-        #print("self.mask: ", self.mask.shape)
 
     def forward(self, x, offset, mask):
         input = F.interpolate(
@@ -106,7 +101,6 @@ def convert(output_dir, filename='test-model'):
             ),
         ],
         convert_to="neuralnetwork"
-        # minimum_deployment_target=coremltools.target.iOS15
     )
     mlmodel_path = output_path + ".mlmodel"
 
@@ -115,13 +109,6 @@ def convert(output_dir, filename='test-model'):
     rm(mlmodel_path)
     rm(output_path)
     rm(out_pb_path)
-    #print(mlmodel)
-    
-    # coreml_inputs = {"input": example_input.detach().cpu().numpy(),
-    #                  "dataOffset": offset.detach().cpu().numpy(),
-    #                  "dataMask": offset.detach().cpu().numpy()}
-    #prediction_dict = mlmodel.predict(coreml_inputs)
-    #print(prediction_dict["output"])
 
     mlmodel.save(mlmodel_path)
 

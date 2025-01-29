@@ -52,7 +52,6 @@ class App {
             "dataMask": exampleMask
         ]
         let input = try MLDictionaryFeatureProvider(dictionary: combinedInputs)
-        //let input = Input(input: exampleInput)
         
         let output = try await model.prediction(from: input)
             .featureValue(for: "output")?

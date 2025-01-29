@@ -5,16 +5,6 @@ import CoreML
 @objc(dneprDroid_deform_conv2d)
 final class DeformConv2d: NSObject, MLCustomLayer {
     func setWeightData(_ weights: [Data]) throws {
-//        self.offset = try TextureFactory.createTexture2DArray(
-//            device: device,
-//            from: weights[0],
-//            shape: params.offsetShape.shape
-//        )
-//        self.mask = try TextureFactory.createTexture2DArray(
-//            device: device,
-//            from: weights[1],
-//            shape: params.maskShape.shape
-//        )
     }
     
     let device: MTLDevice
@@ -25,9 +15,6 @@ final class DeformConv2d: NSObject, MLCustomLayer {
     var gpuParams: DeformConv2dParams.GPUParams
     
     let pipelineState: MTLComputePipelineState
-    
-    //var offset: MTLTexture?
-    //var mask: MTLTexture?
 
     required init(parameters: [String : Any]) throws {
         guard

@@ -14,9 +14,20 @@ class _State:
     _flatten_index = 0
 
 
-def register_op():
+def register_op(isMobile=True):
+    r"""
+    Register the op builder for "torchvision::deform_conv2d"
+
+    isMobile: (Boolean) [Default=True]
+        If True, uses a custom CoreML operator for torch.addmm (instead of mb.matmul),
+        because usage of mb.matmul on iOS forces CoreML to evaluate 
+        the CoreML custom layer "dneprDroid_deform_conv2d" on CPU (instead of GPU)
+    """
+    def _op_builder(context, node):
+        return torchvision_deform_conv2d(context, node, isMobile)
+    
     register_torch_op(
-        _func=torchvision_deform_conv2d,
+        _func=_op_builder,
         torch_alias=["torchvision::deform_conv2d"],
         override=True
     )
@@ -30,7 +41,7 @@ def _shapeToStr(shape):
     shape_array = list(_to_int_shape(shape))
     return json.dumps(shape_array)
 
-def torchvision_deform_conv2d(context, node):
+def torchvision_deform_conv2d(context, node, isMobile):
     inputs = mil_get_inputs(context, node, expected=14)
 
     input = inputs[0]
@@ -118,14 +129,6 @@ def torchvision_deform_conv2d(context, node):
             weight.shape[2],
             weight.shape[3]
         ])
-    
-    weight = _view(
-        x=weight,
-        shape=[
-            weight.shape[0],
-            weight.shape[1],
-            weight.shape[2] * weight.shape[3] * weight.shape[4]
-        ])
 
     columns_shape = _to_int_shape([
         n_in_channels * weight_h * weight_w,
@@ -193,12 +196,31 @@ def torchvision_deform_conv2d(context, node):
     def _as_img_tensor2(x):
         assert len(x.shape) == 2
         return _view(x=x, shape=([1, 1] + list(x.shape)))
+    
+    if not isMobile:
+        weight = _view(
+            x=weight,
+            shape=[
+                weight.shape[0],
+                weight.shape[1],
+                weight.shape[2] * weight.shape[3] * weight.shape[4]
+            ])
+        out_buf_addmm = mb.matmul(
+            x=weight,
+            y=columns
+        )
+        context.add(out_buf_addmm)
+    else:
+        columns_g = _view(x=columns, shape=columns.shape[1:])
 
-    out_buf_addmm = mb.matmul(
-        x=weight,
-        y=columns
-    )
-    context.add(out_buf_addmm)
+        weight_g = _view(x=weight, shape=weight.shape[1:])
+        weight_g = _view(x=weight, shape=[1, 1, 1, weight_g.val.size])
+
+        out_buf_addmm = mb.addmm_op(
+            p1=_as_img_tensor2(_flatten(weight_g, 1)),
+            p2=_as_img_tensor2(columns_g)
+        )
+    
     out_buf = _view(x=out_buf_addmm, shape=out_buf.shape)
 
     columns = _view(

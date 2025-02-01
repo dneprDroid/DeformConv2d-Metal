@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E4B0C612D3154B700FA42BC /* example_offset.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C5F2D3154B700FA42BC /* example_offset.json */; };
+		6E4B0C622D3154B700FA42BC /* example_mask.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C602D3154B700FA42BC /* example_mask.json */; };
 		CE017C162C023794006F4F1C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */; };
 		CE017C172C023794006F4F1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C102C023794006F4F1C /* Assets.xcassets */; };
 		CE017C182C023794006F4F1C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C122C023794006F4F1C /* MainView.swift */; };
@@ -59,6 +61,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E4B0C5F2D3154B700FA42BC /* example_offset.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = example_offset.json; path = generated/example_offset.json; sourceTree = "<group>"; };
+		6E4B0C602D3154B700FA42BC /* example_mask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = example_mask.json; path = generated/example_mask.json; sourceTree = "<group>"; };
 		CE017BDE2C0235D3006F4F1C /* Test-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE017C102C023794006F4F1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		CE017BD52C0235D3006F4F1C = {
 			isa = PBXGroup;
 			children = (
+				6E4B0C602D3154B700FA42BC /* example_mask.json */,
+				6E4B0C5F2D3154B700FA42BC /* example_offset.json */,
 				CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
@@ -294,6 +300,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E4B0C612D3154B700FA42BC /* example_offset.json in Resources */,
+				6E4B0C622D3154B700FA42BC /* example_mask.json in Resources */,
 				CE1DE7222C024FA7001E19F2 /* Assets.xcassets in Resources */,
 				CE1DE7332C025102001E19F2 /* example_input.json in Resources */,
 				CE1DE7322C0250F0001E19F2 /* example_output.json in Resources */,
@@ -521,7 +529,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				DEVELOPMENT_TEAM = ZR6V2VDSCH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -550,7 +558,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				DEVELOPMENT_TEAM = ZR6V2VDSCH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

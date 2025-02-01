@@ -41,10 +41,17 @@ class App {
         
         print("loading example inputs...")
         
-        let (exampleInput, _) = try NdArrayUtil.readTensor(resource: "example_input.json", type: NdArray4d.self)
-        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray4d.self)
-
-        let input = Input(input: exampleInput)
+        let (exampleInput, _) = try NdArrayUtil.readTensor(resource: "example_input", type: NdArray4d.self)
+        let (exampleOffset, _) = try NdArrayUtil.readTensor(resource: "example_offset", type: NdArray4d.self)
+        let (exampleMask, _) = try NdArrayUtil.readTensor(resource: "example_mask", type: NdArray4d.self)
+        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output", type: NdArray4d.self)
+        
+        let combinedInputs: [String: Any] = [
+            "input": exampleInput,
+            "dataOffset": exampleOffset,
+            "dataMask": exampleMask
+        ]
+        let input = try MLDictionaryFeatureProvider(dictionary: combinedInputs)
         
         let output = try await model.prediction(from: input)
             .featureValue(for: "output")?

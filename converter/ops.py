@@ -56,8 +56,8 @@ class deform_conv2d_op(Operation):
         input=TensorInputType(type_domain="T"),
 
         # weights
-        dataOffset=TensorInputType(const=True, type_domain="T"),
-        dataMask=TensorInputType(const=True, type_domain="T"),
+        dataOffset=TensorInputType(type_domain="T"),
+        dataMask=TensorInputType(type_domain="T"),
 
         inChannels=TensorInputType(const=True, type_domain=types.int32),
         height=TensorInputType(const=True, type_domain=types.int32),
@@ -85,7 +85,7 @@ class deform_conv2d_op(Operation):
 
     bindings = {
         "class_name": _process_class_name('deform_conv2d'),
-        "input_order": ["input"],
+        "input_order": ["input", "dataOffset", "dataMask"],
         "parameters": [
             "outShape",
             "offsetShape",
@@ -115,10 +115,6 @@ class deform_conv2d_op(Operation):
 
     def __init__(self, **kwargs):
         super(deform_conv2d_op, self).__init__(**kwargs)
-        self.bindings["weights"] = [
-            self.dataOffset.val.flatten(),
-            self.dataMask.val.flatten()
-        ]
 
     def type_inference(self):
         input = self.input

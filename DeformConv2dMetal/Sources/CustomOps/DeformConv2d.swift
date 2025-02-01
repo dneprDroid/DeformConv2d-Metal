@@ -4,6 +4,8 @@ import CoreML
 // it'll be loaded by CoreML engine, don't change the objc class name
 @objc(dneprDroid_deform_conv2d)
 final class DeformConv2d: NSObject, MLCustomLayer {
+    func setWeightData(_ weights: [Data]) throws {
+    }
     
     let device: MTLDevice
     
@@ -13,9 +15,6 @@ final class DeformConv2d: NSObject, MLCustomLayer {
     var gpuParams: DeformConv2dParams.GPUParams
     
     let pipelineState: MTLComputePipelineState
-    
-    var offsetWeights: MTLTexture?
-    var maskWeights: MTLTexture?
 
     required init(parameters: [String : Any]) throws {
         guard
@@ -42,19 +41,6 @@ final class DeformConv2d: NSObject, MLCustomLayer {
         super.init()
     }
     
-    func setWeightData(_ weights: [Data]) throws {
-        self.offsetWeights = try TextureFactory.createTexture2DArray(
-            device: device,
-            from: weights[0],
-            shape: params.offsetShape.shape
-        )
-        self.maskWeights = try TextureFactory.createTexture2DArray(
-            device: device,
-            from: weights[1],
-            shape: params.maskShape.shape
-        )
-    }
-    
     func outputShapes(forInputShapes inputShapes: [[NSNumber]]) throws -> [[NSNumber]] {
         return [outShape]
     }
@@ -64,17 +50,17 @@ final class DeformConv2d: NSObject, MLCustomLayer {
             throw ErrorCommon.encoderInvalid
         }
         let input = inputs[0]
+        let offset = inputs[1]
+        let mask = inputs[2]
         let output = outputs[0]
 
         if output.pixelFormat != .rgba16Float {
             throw ErrorCommon.pixelFormatNotSupported(output.pixelFormat)
         }        
-        guard let offsetWeights, let maskWeights else {
-            throw ErrorCommon.missingWeights
-        }
+        
         encoder.setTexture(input, index: 0)
-        encoder.setTexture(offsetWeights, index: 1)
-        encoder.setTexture(maskWeights, index: 2)
+        encoder.setTexture(offset, index: 1)
+        encoder.setTexture(mask, index: 2)
         encoder.setBytes(
             &gpuParams,
             length: MemoryLayout<DeformConv2dParams.GPUParams>.stride,

@@ -44,16 +44,16 @@ def _shapeToStr(shape):
 def torchvision_deform_conv2d(context, node, isMobile):
     inputs = mil_get_inputs(context, node, expected=14)
 
+    # Input tensors:
     input = inputs[0]
+    offset = inputs[2]
+    mask = inputs[3]
+    bias = inputs[4]
 
     # Weights:
     weight = inputs[1]
-    offset = inputs[2]
-    mask = inputs[3]
 
     assert weight.op.op_type == 'const', 'the `weight` param should be stored in the weights'
-
-    bias = inputs[4]
 
     stride_h = inputs[5].val
     stride_w = inputs[6].val
@@ -197,7 +197,19 @@ def torchvision_deform_conv2d(context, node, isMobile):
         assert len(x.shape) == 2
         return _view(x=x, shape=([1, 1] + list(x.shape)))
     
-    if not isMobile:
+    if isMobile:
+        # Use custom layer for torch.addmm 
+        columns_g = _view(x=columns, shape=columns.shape[1:])
+
+        weight_g = _view(x=weight, shape=weight.shape[1:])
+        weight_g = _view(x=weight, shape=[1, 1, 1, weight_g.val.size])
+
+        out_buf_addmm = mb.addmm_op(
+            p1=_as_img_tensor2(_flatten(weight_g, 1)),
+            p2=_as_img_tensor2(columns_g)
+        )
+    else:
+        # Use native implementation 
         weight = _view(
             x=weight,
             shape=[
@@ -210,16 +222,6 @@ def torchvision_deform_conv2d(context, node, isMobile):
             y=columns
         )
         context.add(out_buf_addmm)
-    else:
-        columns_g = _view(x=columns, shape=columns.shape[1:])
-
-        weight_g = _view(x=weight, shape=weight.shape[1:])
-        weight_g = _view(x=weight, shape=[1, 1, 1, weight_g.val.size])
-
-        out_buf_addmm = mb.addmm_op(
-            p1=_as_img_tensor2(_flatten(weight_g, 1)),
-            p2=_as_img_tensor2(columns_g)
-        )
     
     out_buf = _view(x=out_buf_addmm, shape=out_buf.shape)
 

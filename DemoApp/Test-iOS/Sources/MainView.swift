@@ -11,7 +11,7 @@ struct MainView: View {
         .padding(25)
         .onAppear {
             Task {
-                try await viewModel.test()
+                await viewModel.test()
             }
         }
     }
@@ -39,6 +39,8 @@ struct MainView: View {
             return "Validation: failed\n" +
                    "(CoreML and PyTorch output tensors aren't equal)" +
                    extraInfo
+        case let .error(error):
+            return "Error: \(error.localizedDescription)"
         }
     }
 }

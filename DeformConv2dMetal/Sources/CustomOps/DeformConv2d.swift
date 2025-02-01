@@ -4,8 +4,6 @@ import CoreML
 // it'll be loaded by CoreML engine, don't change the objc class name
 @objc(dneprDroid_deform_conv2d)
 final class DeformConv2d: NSObject, MLCustomLayer {
-    func setWeightData(_ weights: [Data]) throws {
-    }
     
     let device: MTLDevice
     
@@ -40,6 +38,8 @@ final class DeformConv2d: NSObject, MLCustomLayer {
         pipelineState = try device.makeComputePipelineState(function: function)
         super.init()
     }
+    
+    func setWeightData(_ weights: [Data]) throws {}
     
     func outputShapes(forInputShapes inputShapes: [[NSNumber]]) throws -> [[NSNumber]] {
         return [outShape]

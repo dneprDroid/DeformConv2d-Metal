@@ -7,7 +7,7 @@ enum NdArrayUtil {
         resource: String,
         type: NdArrayType.Type = NdArrayType.self
     ) throws -> (MLMultiArray, NdArrayType) {
-        guard let url = Bundle.main.url(forResource: resource, withExtension: "json") else {
+        guard let url = Bundle.main.url(forResource: resource, withExtension: nil) else {
             throw NdArrayError.resNotFound
         }
         return try readTensor(url: url)

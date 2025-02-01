@@ -10,6 +10,7 @@ enum State {
     case runningModel
     case validation
     case completed(ok: Bool)
+    case error(Error)
 }
 
 final class MLModelTestWorker {
@@ -38,10 +39,17 @@ final class MLModelTestWorker {
         
         await onUpdateState(.loadingExampleTensors)
 
-        let (exampleInputTensor, _) = try NdArrayUtil.readTensor(resource: "example_input.json", type: NdArray4d.self)
+        let (exampleInput, _) = try NdArrayUtil.readTensor(resource: "example_input.json", type: NdArray4d.self)
+        let (exampleOffset, _) = try NdArrayUtil.readTensor(resource: "example_offset.json", type: NdArray4d.self)
+        let (exampleMask, _) = try NdArrayUtil.readTensor(resource: "example_mask.json", type: NdArray4d.self)
         let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray4d.self)
-
-        let input = Input(input: exampleInputTensor)
+        
+        let combinedInputs: [String: Any] = [
+            "input": exampleInput,
+            "dataOffset": exampleOffset,
+            "dataMask": exampleMask
+        ]
+        let input = try MLDictionaryFeatureProvider(dictionary: combinedInputs)
         
         print("loaded")
         
@@ -66,26 +74,5 @@ final class MLModelTestWorker {
             expected: exampleOutputArray
         )
         await onUpdateState(.completed(ok: isOk))
-    }
-}
-    
-extension MLModelTestWorker {
-
-    final class Input: MLFeatureProvider {
-        
-        let featureNames: Set<String> = ["input"]
-        
-        private let input: MLMultiArray
-
-        init(input: MLMultiArray) {
-            self.input = input
-        }
-        
-        func featureValue(for featureName: String) -> MLFeatureValue? {
-            if featureName == "input" {
-                return MLFeatureValue(multiArray: input)
-            }
-            return .none
-        }
     }
 }

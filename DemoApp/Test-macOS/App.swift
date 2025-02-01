@@ -41,10 +41,10 @@ class App {
         
         print("loading example inputs...")
         
-        let (exampleInput, _) = try NdArrayUtil.readTensor(resource: "example_input", type: NdArray4d.self)
-        let (exampleOffset, _) = try NdArrayUtil.readTensor(resource: "example_offset", type: NdArray4d.self)
-        let (exampleMask, _) = try NdArrayUtil.readTensor(resource: "example_mask", type: NdArray4d.self)
-        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output", type: NdArray4d.self)
+        let (exampleInput, _) = try NdArrayUtil.readTensor(resource: "example_input.json", type: NdArray4d.self)
+        let (exampleOffset, _) = try NdArrayUtil.readTensor(resource: "example_offset.json", type: NdArray4d.self)
+        let (exampleMask, _) = try NdArrayUtil.readTensor(resource: "example_mask.json", type: NdArray4d.self)
+        let (_, exampleOutputArray) = try NdArrayUtil.readTensor(resource: "example_output.json", type: NdArray4d.self)
         
         let combinedInputs: [String: Any] = [
             "input": exampleInput,
@@ -76,26 +76,5 @@ class App {
         alert.messageText = message
         alert.informativeText = description
         alert.runModal()
-    }
-}
-
-private extension App {
-    
-    final class Input: MLFeatureProvider {
-        
-        let featureNames: Set<String> = ["input"]
-        
-        private let input: MLMultiArray
-
-        init(input: MLMultiArray) {
-            self.input = input
-        }
-        
-        func featureValue(for featureName: String) -> MLFeatureValue? {
-            if featureName == "input" {
-                return MLFeatureValue(multiArray: input)
-            }
-            return .none
-        }
     }
 }

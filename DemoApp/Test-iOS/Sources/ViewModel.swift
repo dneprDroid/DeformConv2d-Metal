@@ -7,10 +7,13 @@ final class ViewModel: ObservableObject {
     
     private var worker = MLModelTestWorker()
 
-    func test() async throws {
-        worker.onUpdateState = updateState
-        
-        try await worker.test()
+    func test() async {
+        do {
+            worker.onUpdateState = updateState
+            try await worker.test()
+        } catch {
+            await updateState(.error(error))
+        }
     }
     
     @MainActor private func updateState(_ newState: State) {

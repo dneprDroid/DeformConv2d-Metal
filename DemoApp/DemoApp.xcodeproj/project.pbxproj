@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6E4B0C612D3154B700FA42BC /* example_offset.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C5F2D3154B700FA42BC /* example_offset.json */; };
 		6E4B0C622D3154B700FA42BC /* example_mask.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C602D3154B700FA42BC /* example_mask.json */; };
+		CE002C732D3E9972007A6170 /* example_mask.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C602D3154B700FA42BC /* example_mask.json */; };
+		CE002C742D3E9972007A6170 /* example_offset.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E4B0C5F2D3154B700FA42BC /* example_offset.json */; };
 		CE017C162C023794006F4F1C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */; };
 		CE017C172C023794006F4F1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE017C102C023794006F4F1C /* Assets.xcassets */; };
 		CE017C182C023794006F4F1C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE017C122C023794006F4F1C /* MainView.swift */; };
@@ -61,8 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6E4B0C5F2D3154B700FA42BC /* example_offset.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = example_offset.json; path = generated/example_offset.json; sourceTree = "<group>"; };
-		6E4B0C602D3154B700FA42BC /* example_mask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = example_mask.json; path = generated/example_mask.json; sourceTree = "<group>"; };
+		6E4B0C5F2D3154B700FA42BC /* example_offset.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example_offset.json; sourceTree = "<group>"; };
+		6E4B0C602D3154B700FA42BC /* example_mask.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example_mask.json; sourceTree = "<group>"; };
 		CE017BDE2C0235D3006F4F1C /* Test-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE017C0E2C023794006F4F1C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE017C102C023794006F4F1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,8 +108,6 @@
 		CE017BD52C0235D3006F4F1C = {
 			isa = PBXGroup;
 			children = (
-				6E4B0C602D3154B700FA42BC /* example_mask.json */,
-				6E4B0C5F2D3154B700FA42BC /* example_offset.json */,
 				CE017C1A2C0237FA006F4F1C /* DeformConv2d-Metal */,
 				CE017C152C023794006F4F1C /* Test-iOS */,
 				CE017C332C02483E006F4F1C /* Common */,
@@ -174,6 +174,8 @@
 		CE017C2E2C023ACA006F4F1C /* generated */ = {
 			isa = PBXGroup;
 			children = (
+				6E4B0C602D3154B700FA42BC /* example_mask.json */,
+				6E4B0C5F2D3154B700FA42BC /* example_offset.json */,
 				CE017C2B2C023ACA006F4F1C /* example_input.json */,
 				CE017C2C2C023ACA006F4F1C /* example_output.json */,
 				CE017C2D2C023ACA006F4F1C /* test-model.mlmodel.pb */,
@@ -288,6 +290,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE002C732D3E9972007A6170 /* example_mask.json in Resources */,
+				CE002C742D3E9972007A6170 /* example_offset.json in Resources */,
 				CE017C2F2C023ACA006F4F1C /* example_input.json in Resources */,
 				CE017C172C023794006F4F1C /* Assets.xcassets in Resources */,
 				CE017C162C023794006F4F1C /* Preview Assets.xcassets in Resources */,
@@ -467,7 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test-iOS/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				DEVELOPMENT_TEAM = A4L54D88JK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -497,7 +501,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test-iOS/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 3XMKKQ68AV;
+				DEVELOPMENT_TEAM = A4L54D88JK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -529,7 +533,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = ZR6V2VDSCH;
+				DEVELOPMENT_TEAM = A4L54D88JK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -558,7 +562,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = ZR6V2VDSCH;
+				DEVELOPMENT_TEAM = A4L54D88JK;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
